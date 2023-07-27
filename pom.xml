@@ -8,11 +8,11 @@
 		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.micorservices.demo</groupId>
-	<artifactId>micorservices-demo</artifactId>
+	<groupId>com.microservices.demo</groupId>
+	<artifactId>microservices-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>parent</name>
-	<description>Parent project for micorservices project</description>
+	<description>Parent project for microservices project</description>
 	<modules>
 		<module>twitter-to-kafka-service</module>
 		<module>app-config-data</module>
@@ -20,6 +20,7 @@
         <module>kafka/kafka-admin</module>
 		<module>kafka/kafka-model</module>
 		<module>kafka/kafka-producer</module>
+		<module>common-config</module>
 	</modules>
 
 
@@ -33,14 +34,22 @@
 		<httpclient.version>4.5.13</httpclient.version>
 		<json.version>20220320</json.version>
 		<avro.version>1.11.2</avro.version>
+		<spring-kafka.version>3.0.9</spring-kafka.version>
+		<spring-retry.version>2.0.2</spring-retry.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 
 			<dependency>
-				<groupId>com.micorservices.demo</groupId>
+				<groupId>com.microservices.demo</groupId>
 				<artifactId>app-config-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.microservices.demo</groupId>
+				<artifactId>common-config</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -87,6 +96,19 @@
 				<artifactId>avro</artifactId>
 				<version>${avro.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+				<version>${spring-kafka.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.retry</groupId>
+				<artifactId>spring-retry</artifactId>
+				<version>${spring-retry.version}</version>
+			</dependency>
+
 
 
 		</dependencies>
