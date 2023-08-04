@@ -1,4 +1,4 @@
-package com.micorservices.demo;
+package com.microservices.demo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class TwitterAvroModelTest
+public class AppTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class TwitterAvroModelTest
      *
      * @param testName name of the test case
      */
-    public TwitterAvroModelTest(String testName )
+    public AppTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class TwitterAvroModelTest
      */
     public static Test suite()
     {
-        return new TestSuite( TwitterAvroModelTest.class );
+        return new TestSuite( AppTest.class );
     }
 
     /**

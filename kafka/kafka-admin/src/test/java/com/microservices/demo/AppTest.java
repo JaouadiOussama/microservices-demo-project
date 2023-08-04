@@ -1,4 +1,4 @@
-package com.micorservices.demo;
+package com.microservices.demo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
