@@ -12,37 +12,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.concurrent.CompletableFuture;
+
+
 @Service
 public class TwitterKafkaProducer implements KafkaProducer<Long, TwitterAvroModel> {
+
     private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaProducer.class);
 
     private KafkaTemplate<Long, TwitterAvroModel> kafkaTemplate;
 
-    public TwitterKafkaProducer(KafkaTemplate<Long, TwitterAvroModel> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public TwitterKafkaProducer(KafkaTemplate<Long, TwitterAvroModel> template) {
+        this.kafkaTemplate = template;
     }
 
     @Override
     public void send(String topicName, Long key, TwitterAvroModel message) {
         LOG.info("Sending message='{}' to topic='{}'", message, topicName);
-        ListenableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture =
-                (ListenableFuture<SendResult<Long, TwitterAvroModel>>) kafkaTemplate.send(topicName, key, message);
-        addCallback(topicName, message, kafkaResultFuture);
+        CompletableFuture<Void> kafkaResultFuture = CompletableFuture.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                kafkaTemplate.send(topicName, key, message);
+            }
+        });
+
     }
 
     @PreDestroy
     public void close() {
         if (kafkaTemplate != null) {
-            LOG.info("Closing kafka producer");
+            LOG.info("Closing kafka producer!");
             kafkaTemplate.destroy();
         }
     }
 
-    private static void addCallback(String topicName, TwitterAvroModel message, ListenableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture) {
-        kafkaResultFuture.addCallback(new ListenableFutureCallback<SendResult<Long, TwitterAvroModel>>() {
+    private void addCallback(String topicName, TwitterAvroModel message,
+                             ListenableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture) {
+        kafkaResultFuture.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onFailure(Throwable throwable) {
-                LOG.error("Error while sending messsage {} to topic {}", message.toString(), topicName, throwable);
+                LOG.error("Error while sending message {} to topic {}", message.toString(), topicName, throwable);
             }
 
             @Override
