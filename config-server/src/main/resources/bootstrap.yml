@@ -5,6 +5,13 @@ spring:
     config:
       server:
         git:
-          uri: file://home/oussama/Desktop/training/event-driven-microservices-spring-boot-kafka-and-elasticsearch(udemy)/microservices-demo-project\config-server-repository
+          uri: https://github.com/JaouadiOussama/spring-cloud-config-server-repository
+          username: JaouadiOussama
+          password: *********
           clone-on-start: true
     fail-fast: true
+
+  security:
+    user:
+      name: spring_cloud_user
+      password: springCloud_Pwd!
