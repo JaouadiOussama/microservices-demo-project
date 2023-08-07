@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://home/oussama/Desktop/training/event-driven-microservices-spring-boot-kafka-and-elasticsearch(udemy)/microservices-demo-project\config-server-repository
+          clone-on-start: true
+    fail-fast: true
