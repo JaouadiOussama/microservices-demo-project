@@ -43,6 +43,7 @@
 		<kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
 		<spring-cloud.version>4.0.4</spring-cloud.version>
 		<spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
+		<elastic.version>7.9.1</elastic.version>
 	</properties>
 
 	<repositories>
@@ -213,6 +214,18 @@
 						<artifactId>swagger-core</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elastic.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elastic.version}</version>
 			</dependency>
 
 
